@@ -1,4 +1,4 @@
-# this is a React frontend application that talks to a database i built(Class Management Api)
+# this is a React frontend application that talks to an api i built(Class Management Api)
 
 # clone the repository
 
