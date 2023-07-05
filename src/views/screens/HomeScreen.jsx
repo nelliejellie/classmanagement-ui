@@ -1,4 +1,8 @@
 import React, {useState} from 'react'
+import TeacherInput from '../components/TeacherInput';
+import Teachers from '../components/Teachers';
+import StudentInput from '../components/StudentInput';
+import Student from '../components/Student';
 
 function HomeScreen() {
   const [isStudentPortal, setIsStudentPortal] = useState("student");
@@ -24,7 +28,32 @@ function HomeScreen() {
             >
                 Teacher Portal
             </h1>
+            
         </div>
+        <div className='mt-10 flex flex-row'>
+          {
+            isStudentPortal === 'teacher' ?
+            <div className='w-[100%] flex flex-row'>
+              <div className='w-[50%]'>
+                <TeacherInput/>
+              </div>
+              <div className='w-[50%]'>
+                <Teachers/>
+              </div>
+            </div>
+            :
+            <div className='w-[100%] flex flex-row'>
+              <div className='w-[50%]'>
+                <StudentInput/>
+              </div>
+              <div className='w-[50%]'>
+                <Student/>
+              </div>
+            </div>
+          }
+          
+        </div>
+        
     </section>
   )
 }
