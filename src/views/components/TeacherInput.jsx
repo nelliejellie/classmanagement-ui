@@ -1,13 +1,15 @@
 import React, {useState} from 'react'
+import axios from "axios";
 
 function TeacherInput() {
   const [name, setName] = useState("")
   const [surname, setSurname] = useState("")
   const [selectedOption, setSelectedOption] = useState("");
-  const [salary, setsalary] = useState(0)
+  const [salary, setsalary] = useState()
   const [nin, setNin] = useState("")
-  const [teacherNumber, setTeacherNumber] = useState(0)
+  const [teacherNumber, setTeacherNumber] = useState("")
   const [selectedDate, setSelectedDate] = useState("");
+  const [submitText, setSubmitText] = useState("submit")
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -20,6 +22,30 @@ function TeacherInput() {
   const handleInputs = (e, valueSetter) =>{
     valueSetter(e.target.value)
   }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setSubmitText("processing...")
+    try {
+      const newTeacher = {
+        nin: nin,
+        name: name,
+        surname: surname,
+        dob: selectedDate,
+        title: selectedOption,
+        salary: 0,
+        teacherNumber: teacherNumber
+      }
+      const response = await axios.post("https://localhost:7175/api/Teacher", newTeacher);
+      console.log(response.data);
+      setSubmitText("submit")  
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+      alert("an error occurred please make sure all fields are filled and your age is not more than 22")
+      setSubmitText("submit") 
+    }
+  };
   return (
     <section className=''>
         <h1 className='font-bold text-2xl text-black'>Add a new Teacher</h1>
@@ -104,8 +130,9 @@ function TeacherInput() {
             
             <div className='flex flex-col justify-start items-center w-[60%] mt-10 ml-4'>
                 <button 
+                    onClick={handleSubmit}
                     className='outline-none w-[100%] h-[40px] border-2 pl-4 bg-green-500 text-white'>
-                        Submit
+                        {submitText}
                 </button>
             </div>
         </div>  

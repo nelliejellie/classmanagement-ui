@@ -1,16 +1,36 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import TeacherInput from '../components/TeacherInput';
 import Teachers from '../components/Teachers';
 import StudentInput from '../components/StudentInput';
 import Student from '../components/Student';
+import axios from "axios";
 
 function HomeScreen() {
   const [isStudentPortal, setIsStudentPortal] = useState("student");
+  const [students, setStudents] = useState([])
+  const [teachers, setTeachers] = useState([])
+
+  useEffect(()=>{
+    getStudents()
+    getTeachers()
+  },[])
+
   const handleStudent = () =>{
     setIsStudentPortal("student")
   }
   const handleTeacher = () =>{
     setIsStudentPortal("teacher")
+  }
+
+  const getStudents = async () => {
+    const response = await axios.get("https://localhost:7175/api/Student");
+    setStudents(response.data.payload)
+    console.log(response)
+  }
+  const getTeachers = async () => {
+    const response = await axios.get("https://localhost:7175/api/Teacher");
+    setTeachers(response.data.payload)
+    console.log(response)
   }
   return (
     <section>
@@ -38,7 +58,7 @@ function HomeScreen() {
                 <TeacherInput/>
               </div>
               <div className='w-[50%]'>
-                <Teachers/>
+                <Teachers teachers={teachers}/>
               </div>
             </div>
             :
@@ -47,7 +67,7 @@ function HomeScreen() {
                 <StudentInput/>
               </div>
               <div className='w-[50%]'>
-                <Student/>
+                <Student students={students}/>
               </div>
             </div>
           }
