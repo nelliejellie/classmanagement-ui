@@ -22,7 +22,6 @@ function Student({students}) {
                             <p className='text-center w-[13%]'>{item.name}</p>
                             <p className='text-center w-[13%]'>{item.surname}</p>
                             <p className='text-center w-[13%]'>{item.dob.slice(0,10)}</p>
-                            <p className='text-center w-[13%]'>{item.salary}</p>
                             <p className='text-center w-[13%]'>{item.studentNumber}</p>
                             <p className='text-center w-[13%]'>{item.nin}</p>
                         </div>
