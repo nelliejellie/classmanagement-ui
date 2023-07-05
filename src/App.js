@@ -1,11 +1,10 @@
 import './App.css';
+import HomeScreen from './views/screens/HomeScreen';
 
 function App() {
   return (
     <div className="App">
-      <div className="text-3xl font-bold underline">
-        hello world
-      </div>
+      <HomeScreen/>
     </div>
   );
 }
